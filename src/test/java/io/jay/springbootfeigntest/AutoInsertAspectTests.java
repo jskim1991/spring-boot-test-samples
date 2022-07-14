@@ -1,23 +1,25 @@
 package io.jay.springbootfeigntest;
 
 import io.jay.springbootfeigntest.client.ProductClient;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@DataJpaTest
 public class AutoInsertAspectTests {
 
-    @SpyBean
     ProductRepository repository;
 
-    @Mock
     ProductClient client;
+
+    @BeforeEach
+    void setup() {
+        client = mock(ProductClient.class);
+        repository = mock(ProductRepository.class);
+    }
 
     @Test
     void test_aop_insertsSuccessfully() {
